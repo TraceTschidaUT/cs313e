@@ -1,0 +1,5 @@
+{
+    "python.linting.pylintEnabled": false,
+    "python.autoComplete.addBrackets": true,
+    "python.pythonPath": "C:/Users/Administrator/AppData/Local/Programs/Python/Python36/python.exe"                                  
+}
