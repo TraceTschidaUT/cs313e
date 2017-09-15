@@ -6,7 +6,7 @@
 #  Unique Number: XXXXX
 #
 #  Date Created: 9/8/2017
-#  Date Last Modified: 9/8/2017
+#  Date Last Modified: 9/15/2017
 
 import random
 
@@ -20,15 +20,25 @@ def main():
     # initalize the variable to run the loop
     str_trials = "0"
 
+    # counter to hold number of input trials
+    bool_correct_input = False 
+
     # check to see if number of trials is 0
-    while str_trials == "0" or  not str_trials.isdigit():
+    while not bool_correct_input:
 
         # ask the user for how many trial
         str_trials = input("How many times do you want to roll the dice? ")
 
+        # see if there was an error in input
+        if str_trials == "0" or  not str_trials.isdigit():
+            print("You must enter a number greater than 0!")
+        else:
+            bool_correct_input = True
+
     # convert str_trails into an in 
     num_trails = int(str_trials)
 
+    # dictionary to hold the results of the num of rolls
     dct_results = {
         2:0,
         3:0,
