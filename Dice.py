@@ -9,7 +9,6 @@
 #  Date Last Modified: 9/8/2017
 
 import random
-import math
 
 
 
@@ -18,8 +17,14 @@ def main():
     # seed the random function 
     random.seed(1314)
 
-    # ask the user for how many trial
-    str_trials = input("How many times do you want to roll the dice? ")
+    # initalize the variable to run the loop
+    str_trials = "0"
+
+    # check to see if number of trials is 0
+    while str_trials == "0" or  not str_trials.isdigit():
+
+        # ask the user for how many trial
+        str_trials = input("How many times do you want to roll the dice? ")
 
     # convert str_trails into an in 
     num_trails = int(str_trials)
@@ -52,7 +57,8 @@ def main():
         dct_results[int_roll_total] += 1
  
     # print the result
-    print(list(dct_results.values()))
+    print()
+    print("Results:", list(dct_results.values()))
     print()
 
     # check to see if number of trials is over 100
@@ -66,7 +72,6 @@ def main():
             int_scaled_num = round(dct_results[num] * int_reducer)
             dct_results[num] = int_scaled_num
 
-    print(dct_results.keys())
 
     # format the information 
     while sum(list(dct_results.values())) > 0:
