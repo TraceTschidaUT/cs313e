@@ -67,7 +67,6 @@ def main():
         dct_results[int_roll_total] += 1
  
     # print the result
-    print()
     print("Results:", list(dct_results.values()))
     print()
 
