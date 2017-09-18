@@ -81,7 +81,7 @@ class RPGCharacter():
     def fight(self, _character):
 
         # print the message 
-        print(self.name + " attacks " + _character.name + " with a(n)" + self.weapon.weapon_type)
+        print(self.name + " attacks " + _character.name + " with a(n) " + self.weapon.weapon_type)
         
         # deduct the health 
         _character.health -= self.weapon.damage
@@ -91,14 +91,14 @@ class RPGCharacter():
         print(_character.name + " is now down to " +str(_character.health) + " health")
 
         # check for defeat 
-        self.checkForDefeat()
+        self.checkForDefeat(_character)
 
     def __str__(self):
-        return("{0:s} \n Current Health: {1:f} \n Current Spell Points: {2:f} \n Wielding: {3:s} \n Wearing: {4:s} \n Armor Class: {5:f}".format(self.name, self.health, self.spellPoints, self.weapon.weapon_type, self.armor.armor_type, self.armor.protection))
+        return("\n {0:s} \n    Current Health: {1:d} \n    Current Spell Points: {2:d} \n    Wielding: {3:s} \n    Wearing: {4:s} \n    Armor Class: {5:d} \n".format(self.name, self.health, self.spellPoints, self.weapon.weapon_type, self.armor.armor_type, self.armor.protection))
 
     def checkForDefeat(self, _character):
         if _character.health < 0:
-            print(_character.name + " has been defeated")
+            print(_character.name + " has been defeated!")
 
 class Fighter(RPGCharacter):
     
@@ -119,7 +119,7 @@ class Fighter(RPGCharacter):
     def wield (self, _weapon_type):
 
         # determine if the weapon is allowed
-        if _weapon_type in self.availableWeapons:
+        if _weapon_type.weapon_type in self.availableWeapons:
 
             self.weapon = _weapon_type
 
@@ -132,7 +132,7 @@ class Fighter(RPGCharacter):
     def putOnArmor (self, _armor_type):
 
         # check to see if armor type if allowed 
-        if _armor_type in self.availableArmor:
+        if _armor_type.armor_type in self.availableArmor:
 
             # set the armor 
             self.armor = _armor_type
@@ -160,7 +160,7 @@ class Wizard(RPGCharacter):
     def wield (self, _weapon_type):
 
         # determine if the weapon is allowed
-        if _weapon_type in self.availableWeapons:
+        if _weapon_type.weapon_type in self.availableWeapons:
 
             self.weapon = _weapon_type
 
@@ -173,7 +173,7 @@ class Wizard(RPGCharacter):
     def putOnArmor (self, _armor_type):
 
         # check to see if armor type if allowed 
-        if _armor_type in self.availableArmor:
+        if _armor_type.armor_type in self.availableArmor:
 
             # set the armor 
             self.armor = _armor_type
@@ -200,6 +200,10 @@ class Wizard(RPGCharacter):
 
             else: # if there is enough spell points
 
+                # print the casting of all spell
+                # this is used for all spells
+                print(self.name + " casts " + _spell_name + " at " + _character.name)
+
                 # deduct the spell points
                 self.spellPoints -= spell.spellPoints
 
@@ -219,11 +223,12 @@ class Wizard(RPGCharacter):
                     # change the heal of the target
                     _character.health -= spell.effect
                     
-                    print(self.name + " cast " + _spell_name + " at " + _character.name)
-                    print(_character.name + " is now down to " + _character.health + " health")
+                    # print the output of the spell
+                    print(self.name + " does " + str(spell.effect) + " damage to " + _character.name)
+                    print(_character.name + " is now down to " + str(_character.health) + " health")
 
                     # check for defeat
-                    self.checkForDefeat()    
+                    self.checkForDefeat(_character)    
 
         else:
             print ("Unknown spell name. Spell failed.")
@@ -254,6 +259,43 @@ class Spell():
             print("That spell does not exist")
 
 def main():
+
+    plateMail = Armor("plate")
+    chainMail = Armor("chain")
+    sword = Weapon("sword")
+    staff = Weapon("staff")
+    axe = Weapon("axe")
+
+    gandalf = Wizard("Gandalf the Grey")
+    gandalf.wield(staff)
+    
+    aragorn = Fighter("Aragorn")
+    aragorn.putOnArmor(plateMail)
+    aragorn.wield(axe)
+    
+    print(gandalf)
+    print(aragorn)
+
+    gandalf.castSpell("Fireball",aragorn)
+    aragorn.fight(gandalf)
+
+    print(gandalf)
+    print(aragorn)
+    
+    gandalf.castSpell("Lightning Bolt",aragorn)
+    aragorn.wield(sword)
+
+    print(gandalf)
+    print(aragorn)
+
+    gandalf.castSpell("Heal",gandalf)
+    aragorn.fight(gandalf)
+
+    gandalf.fight(aragorn)
+    aragorn.fight(gandalf)
+
+    print(gandalf)
+    print(aragorn)
 
 
 main()
