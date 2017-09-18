@@ -6,7 +6,7 @@
 #  Unique Number: 51465
 #
 #  Date Created: 9/15/2017
-#  Date Last Modified: 9/15/2017
+#  Date Last Modified: 9/18/2017
 
 class Weapon():
 
@@ -35,7 +35,7 @@ class Weapon():
 
     # str method to print information
     def __str__(self):
-        return ("")
+        return ("\n{0:s} \n    Damage: {1:d} \n   ".format(self.weapon_type, self.damage))
 
 class Armor():
 
@@ -49,7 +49,7 @@ class Armor():
         elif _armor_type == "chain":
             self.protection = 5
         elif _armor_type == "leather":
-            self.armor_type = 8
+            self.protection = 8
         elif _armor_type == "none":
             self.protection = 10
         else: # if the armor is not a valid type
@@ -58,6 +58,8 @@ class Armor():
 
             # inform the user that the armor type does not exist 
             print("This armor type does not exist")
+    def __str__(self):
+        return ("\n{0:s} \n    Protection: {1:d} \n".format(self.armor_type, self.protection))
 
 class RPGCharacter():
     
@@ -94,7 +96,7 @@ class RPGCharacter():
         self.checkForDefeat(_character)
 
     def __str__(self):
-        return("\n {0:s} \n    Current Health: {1:d} \n    Current Spell Points: {2:d} \n    Wielding: {3:s} \n    Wearing: {4:s} \n    Armor Class: {5:d} \n".format(self.name, self.health, self.spellPoints, self.weapon.weapon_type, self.armor.armor_type, self.armor.protection))
+        return("\n{0:s} \n   Current Health: {1:d} \n   Current Spell Points: {2:d} \n   Wielding: {3:s} \n   Wearing: {4:s} \n   Armor Class: {5:d} \n".format(self.name, self.health, self.spellPoints, self.weapon.weapon_type, self.armor.armor_type, self.armor.protection))
 
     def checkForDefeat(self, _character):
         if _character.health < 0:
@@ -186,6 +188,10 @@ class Wizard(RPGCharacter):
     
     def castSpell(self, _spell_name, _character):
 
+        # print the casting of all spell
+        # this is used for all spells
+        print(self.name + " casts " + _spell_name + " at " + _character.name)
+
         # create the spell instance
         if _spell_name in ["Fireball", "Lightning Bolt" , "Heal"]:
             
@@ -200,10 +206,6 @@ class Wizard(RPGCharacter):
 
             else: # if there is enough spell points
 
-                # print the casting of all spell
-                # this is used for all spells
-                print(self.name + " casts " + _spell_name + " at " + _character.name)
-
                 # deduct the spell points
                 self.spellPoints -= spell.spellPoints
 
@@ -211,7 +213,7 @@ class Wizard(RPGCharacter):
                 if spell.name == "Heal":
 
                     # check to see if the heal is more than max health 
-                    if _character.health + spell.effect > _character.maxHealth:
+                    if _character.health - spell.effect >= _character.maxHealth:
                         _character.health = _character.maxHealth
                     else:
                         _character.health -= spell.effect
@@ -258,44 +260,3 @@ class Spell():
 
             print("That spell does not exist")
 
-def main():
-
-    plateMail = Armor("plate")
-    chainMail = Armor("chain")
-    sword = Weapon("sword")
-    staff = Weapon("staff")
-    axe = Weapon("axe")
-
-    gandalf = Wizard("Gandalf the Grey")
-    gandalf.wield(staff)
-    
-    aragorn = Fighter("Aragorn")
-    aragorn.putOnArmor(plateMail)
-    aragorn.wield(axe)
-    
-    print(gandalf)
-    print(aragorn)
-
-    gandalf.castSpell("Fireball",aragorn)
-    aragorn.fight(gandalf)
-
-    print(gandalf)
-    print(aragorn)
-    
-    gandalf.castSpell("Lightning Bolt",aragorn)
-    aragorn.wield(sword)
-
-    print(gandalf)
-    print(aragorn)
-
-    gandalf.castSpell("Heal",gandalf)
-    aragorn.fight(gandalf)
-
-    gandalf.fight(aragorn)
-    aragorn.fight(gandalf)
-
-    print(gandalf)
-    print(aragorn)
-
-
-main()
