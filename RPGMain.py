@@ -1,4 +1,4 @@
-def main() 
+def main(): 
 
     availableArmor = ["plate", "chain", "leather", "none"]
     availableWeapons = ["dagger", "axe", "staff", "sword", "none"]
@@ -89,15 +89,15 @@ def main()
 
     print("Testing no spell points")
     gandalf.spellPoints = 100
-    gandalf.castSpell("Heal", aragorn)
-    gandalf.castSpell("Heal", aragorn)
-    gandalf.castSpell("Heal", aragorn)
-    gandalf.castSpell("Heal", aragorn)
-    aragorn.fight(gandalf)
+    gandalf.castSpell("Hail", aragorn)
+    gandalf.castSpell("Heal", gandalf)
+    gandalf.castSpell("Heal", gandalf)
+    gandalf.castSpell("Heal", gandalf)
+    gandalf.castSpell("Heal", gandalf)
+    # aragorn.fight(gandalf)
 
     print(gandalf)
     print(aragorn)
-
 
 
 main()
