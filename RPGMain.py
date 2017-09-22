@@ -1,4 +1,4 @@
-def main():
+def main() 
 
     availableArmor = ["plate", "chain", "leather", "none"]
     availableWeapons = ["dagger", "axe", "staff", "sword", "none"]
