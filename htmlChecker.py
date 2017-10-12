@@ -1,3 +1,13 @@
+#  File: htmlChecker.py
+#  Description: A html syntax checker using a stack
+#  Student's Name: Trace Tschida
+#  Student's UT EID: TRT729
+#  Course Name: CS 313E 
+#  Unique Number: 51465
+#
+#  Date Created: 10/6/2017
+#  Date Last Modified: 10/12/2017
+
 class Stack():
 
     def __init__(self):
@@ -114,11 +124,12 @@ def main():
                 if tag in EXCEPTIONS:
 
                     # print the results
-                    print("Tag " + tag + " does not need to match: stack is still " + str(tagStack))
+                    print("\nTag " + tag + " does not need to match: stack is still " + str(tagStack) + "\n")
                     continue # skip to the next tag
 
                 # push the tag to the stack and print the results
                 tagStack.push(tag)
+                print("Tag " + tag + " push: stack is now " + str(tagStack))
 
                 # check to see if the tag is in the valid tags
                 # add the tag if not
@@ -126,9 +137,7 @@ def main():
 
                     # add the tag to VALIDTAGS
                     VALIDTAGS.append(tag)
-                    print("New tag " + tag + " found and added to list of vavlid tags")
-
-                print("Tag " + tag + " push: stack is now " + str(tagStack))
+                    print("\nNew tag " + tag + " found and added to list of vavlid tags \n")
             
             else: # check to see if closing tag matches
 
@@ -142,6 +151,7 @@ def main():
                         print("Tag " + tag + " matches top of stack: stack is now " + str(tagStack))
                     
                     else: 
+
                         # the tag does not match the tag
                         raise InvalidTagException(tag)
 
@@ -153,26 +163,27 @@ def main():
         except InvalidTagException as it:
 
             # print therror message and continue
-            print("Error: tag is " + it.tag + " but top of stack is " + tagStack.peek())
+            print("\nError: tag is " + it.tag + " but top of stack is " + tagStack.peek())
             quit()
         
         except EmptyStackException as es:
             
             # print that there were too many closing tags
-            print("Error: stack is empty but remaing closing tags")
+            print("\nError: stack is empty but remaing closing tags")
             quit()
     
     
     # print the results
     if tagStack.isEmpty():
-        print("Processing complete. No mismatches found")
+        print("\nProcessing complete. No mismatches found \n")
     else:
-        print("Processing complete. Unmatched tag remain on stack " + str(tagStack))
+        print("\nProcessing complete. Unmatched tag remain on stack " + str(tagStack) + "\n")
 
     # print Valid Tags
     print("VALIDTAGS:")
     VALIDTAGS.sort()
     print(VALIDTAGS)
+    print("\n")
 
     # print the exceptions
     print("EXCEPTIONS:")
