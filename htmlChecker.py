@@ -21,12 +21,12 @@ class Stack():
     def __str__(self):
         return str(self.items)
 
-class InvalidTag(Exception):
+class InvalidTagException(Exception):
 
     def __init__(self, tag):
         self.tag = tag
 
-class EmptyStack(Exception):
+class EmptyStackException(Exception):
 
     def __init__(self, tag):
         self.tag = tag
@@ -35,7 +35,7 @@ def getTag(file):
 
     # read one character at a time
     char = file.read(1)
-    while char != "": # end of line
+    while char: # end of line
         
         # check the character to see if it is a symbol starting
         if char == "<":
@@ -60,7 +60,9 @@ def getTag(file):
 
         # go to the next character
         char = file.read(1)
-
+    
+    print("End of file \n")
+    return ("", "")
 def main():
 
     # stack for tags
@@ -75,6 +77,8 @@ def main():
     # hold all of the tags returned
     tags = []
 
+    print("Begin reading file \n")
+
     try: # until there is an end of line error
 
         # open the file and begin reading it
@@ -86,16 +90,18 @@ def main():
                 # call get tag
                 tag, char = getTag(f)
 
+                # check to see if end of line
+                if char == "":
+                    print("Finished reading tags, now checking \n")
+                    break
+
                 # append the tag
                 tags.append(tag)
 
-                # check to see if end of line
-                if char == "":
-                    break
-    except:
+    except Exception as e:
 
-        # reached end of line 
-        print("Finished readeding tags now comparing \n")
+        # reached end of line
+        print("Finished reading tags and now comparing \n")
 
     # iterate through the list and find match
     for tag in tags:
@@ -137,20 +143,20 @@ def main():
                     
                     else: 
                         # the tag does not match the tag
-                        raise InvalidTag(tag)
+                        raise InvalidTagException(tag)
 
                 else: # the stack is empty
 
                     # raise empty stack error
-                    raise EmptyStack(tag)
+                    raise EmptyStackException(tag)
 
-        except InvalidTag as it:
+        except InvalidTagException as it:
 
             # print therror message and continue
             print("Error: tag is " + it.tag + " but top of stack is " + tagStack.peek())
             quit()
         
-        except EmptyStack as es:
+        except EmptyStackException as es:
             
             # print that there were too many closing tags
             print("Error: stack is empty but remaing closing tags")
@@ -165,10 +171,12 @@ def main():
 
     # print Valid Tags
     print("VALIDTAGS:")
+    VALIDTAGS.sort()
     print(VALIDTAGS)
 
     # print the exceptions
     print("EXCEPTIONS:")
+    EXCEPTIONS.sort()
     print(EXCEPTIONS)
 
 main( ) 
