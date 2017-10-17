@@ -6,7 +6,7 @@
 #  Unique Number: 51465
 #
 #  Date Created: 10/14/2017
-#  Date Last Modified: 10/14/2017
+#  Date Last Modified: 10/17/2017
 
 class Queue:
 
@@ -80,10 +80,11 @@ def main():
                 # check if treating next or condition
                 if command_components[1] == "next":
 
-                    treatNext(command_components, fairQueue, seriousQueue, criticalQueue)
+                    treated = treatNext(command_components, fairQueue, seriousQueue, criticalQueue)
                     
-                    # print the updated queues
-                    printQueues(fairQueue, seriousQueue, criticalQueue)
+                    if treated:
+                        # print the updated queues
+                        printQueues(fairQueue, seriousQueue, criticalQueue)
 
                 elif command_components[1] == "all":
                     treatAll(fairQueue, seriousQueue, criticalQueue)
@@ -114,10 +115,13 @@ def addPatient(patient, queue, typeQueue):
     queue.enqueue(patient)
 
     # print the command
-    print("Command: Add patient " + patient + " to " + typeQueue + " queue")
+    print("Command: Add patient " + patient + " to " + typeQueue + " queue\n")
 
     
 def treatNext(commands, fair, serious, critical):
+
+    # know if patients left
+    treated = False
 
     # treat the next patient
     print("Command: Treat next patient\n")
@@ -130,6 +134,7 @@ def treatNext(commands, fair, serious, critical):
 
         # print the results
         print("\tTreating '" + patient + "' from Critical queue")
+        treated = True
 
     elif not serious.isEmpty():
 
@@ -138,6 +143,7 @@ def treatNext(commands, fair, serious, critical):
 
         # print the results
         print("\tTreating '" + patient + "' from Serious queue")
+        treated = True
 
     elif not fair.isEmpty():
         
@@ -145,30 +151,33 @@ def treatNext(commands, fair, serious, critical):
         patient = fair.dequeue()
 
         # print the results
-        print("\tTreating '" + patient + "' from Serious queue")
+        print("\tTreating '" + patient + "' from Fair queue")
+        treated = True
 
     else:
-        print("\tNo patient in queues\n")   
+        print("\tNo patient in queues\n")  
+
+    return treated 
 
 def treatAll(fair, serious, critical):
 
     # print the command
-    print("\nCommand: Treat all patient\n")
+    print("\nCommand: Treat all patients\n")
 
     # loop through each queue and print the results
     while not critical.isEmpty():
         patient = critical.dequeue()
-        print("\n\tTreating " + patient + " from Critical queue")
+        print("\n\tTreating '" + patient + "' from Critical queue")
         printQueues(fair, serious, critical)
     
     while not serious.isEmpty():
         patient = serious.dequeue()
-        print("\n\tTreating " + patient + " from Serious queue")
+        print("\n\tTreating '" + patient + "' from Serious queue")
         printQueues(fair, serious, critical)
     
     while not fair.isEmpty():
         patient = fair.dequeue()
-        print("\n\tTreating " + patient + " from Fair queue")
+        print("\n\tTreating '" + patient + "' from Fair queue")
         printQueues(fair, serious, critical)
     
     print("\n\tNo patients in queues\n")
@@ -176,7 +185,7 @@ def treatAll(fair, serious, critical):
 def treatCondition(condition, queue):
     
     # print the command
-    print("Treat next patient on " + condition + " queue \n")
+    print("Command: Treat next patient on " + condition + " queue \n")
 
     if not queue.isEmpty():
 
@@ -187,7 +196,7 @@ def treatCondition(condition, queue):
         # return queue is not empty
         return False
     else:
-        print("\tNo patients in queue")
+        print("\tNo patients in queue\n")
         return True
 
 

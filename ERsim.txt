@@ -1,27 +1,26 @@
-add Critical Wayne,B.
-add Serious Allen,B.
-add Fair Kent,C.
-add Critical Queen,O.
-add Serious Prince,D.
-add Fair Jordan,H.
-treat next
-treat next
-add Fair Curry,A.
+add Serious Luck
+add Fair Stafford
+add Critical Brady
+add Serious Bradford
 treat next
 treat next
 treat next
-add Critical Lance,D.
-add Serious Jones,J.
 treat next
 treat next
-treat next
-add Critical Queen,O.
-add Serious Jones,J.
-add Fair Lance,D.
-add Serious Palmer,R.
-add Critical Allen,B.
-add Serious Wayne,B.
+add Serious Luck
+add Fair Stafford
+add Critical Brady
+add Serious Bradford
+treat Critical
 treat Serious
+treat Serious
+treat Fair
+treat Serious
+treat Critical
+treat Fair
+add Serious Luck
+add Fair Stafford
+add Critical Brady
+add Serious Bradford
 treat all
-treat next
 exit
