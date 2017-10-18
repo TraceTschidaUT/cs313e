@@ -51,7 +51,13 @@ def main():
     # open the file of commands
     with open("ERsim.txt", "r") as f:
 
+        quit = False
+
         for line in f:
+
+            # get out of the loop, command exit
+            if quit:
+                break
 
             # get the command
             command = line.strip()
@@ -90,8 +96,8 @@ def main():
                     treatAll(fairQueue, seriousQueue, criticalQueue)
 
                 else:
-                    condition = command_components[1]
-                    is_empty = True
+                    condition = command_components[1] # get the condition
+                    is_empty = True # variable to know if print
 
                     if condition == "Critical":
                         is_empty = treatCondition(condition, criticalQueue)
@@ -107,7 +113,8 @@ def main():
                         printQueues(fairQueue, seriousQueue, criticalQueue)
 
             elif command_components[0] == "exit":
-                exitErSim()
+                print("Command: Exit\n")
+                quit = True
 
 def addPatient(patient, queue, typeQueue):
     

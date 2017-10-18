@@ -4,6 +4,7 @@ add Fair Kent,C.
 add Critical Queen,O.
 add Serious Prince,D.
 add Fair Jordan,H.
+exit
 treat next
 treat next
 add Fair Curry,A.
