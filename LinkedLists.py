@@ -1,3 +1,13 @@
+#  File: LinkedLists.py
+#  Description: Demo of ordered and unorder linked list
+#  Student's Name: Trace Tschida
+#  Student's UT EID: TRT729
+#  Course Name: CS 313E 
+#  Unique Number: 51465
+#
+#  Date Created: 10/20/2017
+#  Date Last Modified: 10/22/2017
+
 class Node (object):
     def __init__(self,initdata):
         self.data = initdata
@@ -306,7 +316,7 @@ class LinkedList():
 
         # return true for only one node
         if self.getLength() < 2:
-            singleNode = True
+            singleNode = True 
         else: # move previous and current 1 node up
             previousNode = currentNode
             currentNode = currentNode.getNext()     
@@ -445,7 +455,7 @@ class LinkedList():
         return newList
 
 
-    # Copy and paste the following after your class definitions for
+# Copy and paste the following after your class definitions for
 # Nodes and LinkedLists.  Do NOT change any of the code in main()!
 
 def main():
