@@ -9,7 +9,7 @@
 #  Date Last Modified: 10/31/2017
 
 class Node ():
-    
+
     def __init__(self,initdata):
 
         self.data = initdata
@@ -114,7 +114,8 @@ class User():
         currentPointer = self.friends.head.getNext()
 
         # string to hold the friends
-        friends = "[ "
+        friends = ""
+        string = ""
 
         # loop through until the pointer is none
         while currentPointer != None:
@@ -125,10 +126,15 @@ class User():
             # move to the next pointer
             currentPointer = currentPointer.getNext()
 
-        # end the string
-        friends += "]"
+        # if there are no friends
+        if (friends == ""):
 
-        return (friends)
+            string = "{:} has no friends.".format(self.name)
+        else:
+
+            string = "[ {:}]".format(friends)
+
+        return (string)
 
     def addFriend(self, _user):
 
@@ -223,7 +229,7 @@ def main():
                         user1Pointer.addFriend(user2Pointer)
 
                         # print the output
-                        print(friend1.name + " " + friend2.name + " are now friends.")
+                        print(friend1.name + " and " + friend2.name + " are now friends.")
 
                 else:
 
@@ -313,8 +319,13 @@ def main():
                 foundFriend1 = usersLinkedList.search(friend1)
                 foundFriend2 = usersLinkedList.search(friend2)
 
+                # check to see if the names are the same
+                if (friend1.name == friend2.name):
+
+                     print("A person cannot friend him/herself.")
+                     
                 # if the users are found 
-                if (foundFriend1 and foundFriend2):
+                elif (foundFriend1 and foundFriend2):
 
                     # query the friends list
                     # get the user pointer
@@ -330,7 +341,7 @@ def main():
                     # if the users are not friends
                     else:
 
-                        print("{:} and {:} are friends.".format(friend1.name, friend2.name))
+                        print("{:} and {:} are not friends.".format(friend1.name, friend2.name))
                 
                 # if one of users is not found 
                 else:
