@@ -1,3 +1,13 @@
+#  File: sumMaze.py
+#  Description: Solves a maze recursively 
+#  Student's Name: Trace Tschida
+#  Student's UT EID: TRT729
+#  Course Name: CS 313E 
+#  Unique Number: 51465
+#
+#  Date Created: 11/11/2017
+#  Date Last Modified: 11/11/2017
+
 import copy
 class State():
 
@@ -16,7 +26,7 @@ class State():
 
     def __str__(self):
 
-        string = "\n\tGrid:\n"
+        string = "\nProblem is now:\n\tGrid:\n"
 
         for row in self.grid:
             string += "\t  "
@@ -60,21 +70,25 @@ def solve(state):
     # target sum is reached and at the end point
     # at the end point
     # sum matches the target sum
+    print("\nIs this a goal state?")
     if state.sum == state.targetSum and state.rowStart == state.rowEnd and state.colStart == state.colEnd:
+        print("Yes! Solution found")
         return state.history
 
     # else check to see if sum is greater than target sum
     # return None
     elif state.sum > state.targetSum:
+        print("No. But the sum is greater than the target value. No solution on this path")
         return None
     
     # else -> the sum is still less than the target sum
     else:
 
+        print("No. Can I move right?")
         # check if move right is valid
         if isValid(state.grid, state.numRows, state.numCols, state.rowStart, state.colStart + 1):
 
-            print("Moving Right\n")
+            print("Yes! Moving Right")
 
             # create a new state instance
             newState = State(copy.deepcopy(state.grid), \
@@ -102,10 +116,13 @@ def solve(state):
                 return result
 
         # if up is valid
-        if isValid(state.grid, state.numRows, state.numCols, state.rowStart + 1, state.colStart):
+        print("No. Can I move up?")
+        if isValid(state.grid, state.numRows, state.numCols, state.rowStart - 1, state.colStart):
+
+            print("Yes! Moving up")
 
             # create a new start instance
-            newState = State(copy.deepcopy(state.grid), copy.deepcopy(state.history), state.rowStart + 1, \
+            newState = State(copy.deepcopy(state.grid), copy.deepcopy(state.history), state.rowStart - 1, \
                 state.colStart, state.rowEnd, state.colEnd, \
                 state.targetSum, state.sum, state.numRows, state.numCols)
 
@@ -129,10 +146,13 @@ def solve(state):
 
 
         # if down is valid
-        if isValid(state.grid, state.numRows, state.numCols, state.rowStart - 1, state.colStart):
+        print("No. Can I move down?")
+        if isValid(state.grid, state.numRows, state.numCols, state.rowStart + 1, state.colStart):
+
+            print("Yes. Moving down")
 
             # create a new start instance
-            newState = State(copy.deepcopy(state.grid), copy.deepcopy(state.history), state.rowStart - 1, \
+            newState = State(copy.deepcopy(state.grid), copy.deepcopy(state.history), state.rowStart + 1, \
                 state.colStart, state.rowEnd, state.colEnd, \
                 state.targetSum, state.sum, state.numRows, state.numCols)
 
@@ -155,7 +175,10 @@ def solve(state):
                 return result
 
         # if left is valid
+        print("No. Can I move left?")
         if isValid(state.grid, state.numRows, state.numCols, state.rowStart, state.colStart - 1):
+
+            print("Yes! Moving left")
 
             # create a new start instance
             newState = State(copy.deepcopy(state.grid), copy.deepcopy(state.history), \
@@ -183,7 +206,7 @@ def solve(state):
 
         # else -> no moves left, return None
         # other base case
-        print("NOTHING WORKED BACKTRACKING")
+        print("No path works. Backtracking...")
         return None
 
 def main():
@@ -226,6 +249,24 @@ def main():
     start_col = int(maze_data[4])
     end_row = int(maze_data[5])
     end_col = int(maze_data[6])
+
+    # print the original problem
+    print("Target value: {:}".format(targetValue))
+    print("Number of rows: {:}".format(grid_rows))
+    print("Number of columns: {:}".format(grid_cols))
+    print("Start point: ({:},{:})".format(start_row, start_col))
+    print("End point: ({:},{:})".format(end_row, end_col))
+    print("Starting point:")
+
+    # create the first state
+    # create a new state
+    state = State(grid, [], start_row, \
+    start_col, end_row, end_col, targetValue, 0,\
+    grid_rows, grid_cols)
+
+    print(state)
+
+    print("\nStarting maze:")
 
     # first steps
     current_sum = grid[start_row][start_col]
