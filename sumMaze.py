@@ -78,7 +78,7 @@ def solve(state):
     # else check to see if sum is greater than target sum
     # return None
     elif state.sum > state.targetSum:
-        print("No. But the sum is greater than the target value. No solution on this path")
+        print("No. Target exceeded:  abandoning path")
         return None
     
     # else -> the sum is still less than the target sum
@@ -89,6 +89,7 @@ def solve(state):
         if isValid(state.grid, state.numRows, state.numCols, state.rowStart, state.colStart + 1):
 
             print("Yes! Moving Right")
+            print("Paused...")
 
             # create a new state instance
             newState = State(copy.deepcopy(state.grid), \
@@ -120,6 +121,7 @@ def solve(state):
         if isValid(state.grid, state.numRows, state.numCols, state.rowStart - 1, state.colStart):
 
             print("Yes! Moving up")
+            print("Paused...")
 
             # create a new start instance
             newState = State(copy.deepcopy(state.grid), copy.deepcopy(state.history), state.rowStart - 1, \
@@ -150,6 +152,7 @@ def solve(state):
         if isValid(state.grid, state.numRows, state.numCols, state.rowStart + 1, state.colStart):
 
             print("Yes. Moving down")
+            print("Paused...")
 
             # create a new start instance
             newState = State(copy.deepcopy(state.grid), copy.deepcopy(state.history), state.rowStart + 1, \
@@ -179,6 +182,7 @@ def solve(state):
         if isValid(state.grid, state.numRows, state.numCols, state.rowStart, state.colStart - 1):
 
             print("Yes! Moving left")
+            print("Paused...")
 
             # create a new start instance
             newState = State(copy.deepcopy(state.grid), copy.deepcopy(state.history), \
@@ -282,6 +286,7 @@ def main():
 
     result = solve(state) # this will be None or the goals state's history
 
+    print()
     if result == None:
         print("No solution exists")
     else:
