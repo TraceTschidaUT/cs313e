@@ -260,7 +260,7 @@ def main():
     print("Number of columns: {:}".format(grid_cols))
     print("Start point: ({:},{:})".format(start_row, start_col))
     print("End point: ({:},{:})".format(end_row, end_col))
-    print("Starting point:")
+    print("\nInital state:")
 
     # create the first state
     # create a new state
