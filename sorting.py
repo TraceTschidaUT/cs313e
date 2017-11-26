@@ -114,8 +114,6 @@ def timesAverage(alist):
     return average
 
 
-from pprint import pprint
-
 def sortList(alist, bubble_times, insertion_times, merge_times, quick_times):
 
     for trial in range(5):
@@ -231,7 +229,7 @@ def main():
         bubble_average = timesAverage(bubble_times)
         insertion_average = timesAverage(insertion_times)
         merge_average = timesAverage(merge_times)
-        quick_average = timesAverage(merge_times)
+        quick_average = timesAverage(quick_times)
 
         # add the times to the dictionary 
         time_dict["random"]["bubble"][n] = bubble_average
@@ -259,7 +257,7 @@ def main():
         bubble_average = timesAverage(bubble_times)
         insertion_average = timesAverage(insertion_times)
         merge_average = timesAverage(merge_times)
-        quick_average = timesAverage(merge_times)
+        quick_average = timesAverage(quick_times)
 
         # add the times to the dictionary 
         time_dict["sorted"]["bubble"][n] = bubble_average
@@ -273,6 +271,115 @@ def main():
         merge_times.clear()
         quick_times.clear()
 
-    pprint(time_dict)
+    # reverse sorted
+    for n in num_ints:
 
+        # create a reverse sorted list 
+        reverse_list = [i for i in range(n, 0, -1)]
+
+        # sort the list
+        sortList(reverse_list, bubble_times, insertion_times, merge_times, quick_times)
+
+        # get the averages
+        bubble_average = timesAverage(bubble_times)
+        insertion_average = timesAverage(insertion_times)
+        merge_average = timesAverage(merge_times)
+        quick_average = timesAverage(quick_times)
+
+        # add the times to the dictionary 
+        time_dict["reverse"]["bubble"][n] = bubble_average
+        time_dict["reverse"]["insertion"][n] = insertion_average
+        time_dict["reverse"]["merge"][n] = merge_average
+        time_dict["reverse"]["quick"][n] = quick_average
+
+        # clear the times
+        bubble_times.clear()
+        insertion_times.clear()
+        merge_times.clear()
+        quick_times.clear()
+
+    # almost sorted
+    for n in num_ints:
+
+        # create a almost sorted list
+        almost_sorted = [i for i in range(n)]
+
+        # randomly swap 10% of the elements
+        num_swaps = int(n * 0.10)
+        for i in range(num_swaps):
+
+            # get 2 random indexes to swap with
+            randomIdx1 = random.randint(0, n - 1)
+            randomIdx2 = random.randint(0, n - 1)
+
+            # swap the numbers
+            temp = almost_sorted[randomIdx1]
+            almost_sorted[randomIdx1] = almost_sorted[randomIdx2]
+            almost_sorted[randomIdx2] = temp
+        
+        # sort the list
+        sortList(almost_sorted, bubble_times, insertion_times, merge_times, quick_times)
+
+        # get the averages
+        bubble_average = timesAverage(bubble_times)
+        insertion_average = timesAverage(insertion_times)
+        merge_average = timesAverage(merge_times)
+        quick_average = timesAverage(quick_times)
+
+        # add the times to the dictionary 
+        time_dict["almost"]["bubble"][n] = bubble_average
+        time_dict["almost"]["insertion"][n] = insertion_average
+        time_dict["almost"]["merge"][n] = merge_average
+        time_dict["almost"]["quick"][n] = quick_average
+
+        # clear the times
+        bubble_times.clear()
+        insertion_times.clear()
+        merge_times.clear()
+        quick_times.clear()
+
+    # print the results
+
+    print("Input type = Random")
+    print("\t\t\t avg time   avg time   avg time")
+    print("   Sort function\t  (n=10)    (n=100)    (n=1000)")
+    print("------------------------------------------------------------")
+    print("      bubbleSort\t {:f}   {:f}   {:f}".format(time_dict["random"]["bubble"][10],time_dict["random"]["bubble"][100],time_dict["random"]["bubble"][1000]))
+    print("   insertionSort\t {:f}   {:f}   {:f}".format(time_dict["random"]["insertion"][10],time_dict["random"]["insertion"][100],time_dict["random"]["insertion"][1000]))
+    print("       mergeSort\t {:f}   {:f}   {:f}".format(time_dict["random"]["merge"][10],time_dict["random"]["merge"][100],time_dict["random"]["merge"][1000]))
+    print("       quickSort\t {:f}   {:f}   {:f}".format(time_dict["random"]["quick"][10],time_dict["random"]["quick"][100],time_dict["random"]["quick"][1000]))
+    print()
+
+    # sorted
+    print("Input type = Sorted")
+    print("\t\t\t avg time   avg time   avg time")
+    print("   Sort function\t  (n=10)    (n=100)    (n=1000)")
+    print("------------------------------------------------------------")
+    print("      bubbleSort\t {:f}   {:f}   {:f}".format(time_dict["sorted"]["bubble"][10],time_dict["sorted"]["bubble"][100],time_dict["sorted"]["bubble"][1000]))
+    print("   insertionSort\t {:f}   {:f}   {:f}".format(time_dict["sorted"]["insertion"][10],time_dict["sorted"]["insertion"][100],time_dict["sorted"]["insertion"][1000]))
+    print("       mergeSort\t {:f}   {:f}   {:f}".format(time_dict["sorted"]["merge"][10],time_dict["sorted"]["merge"][100],time_dict["sorted"]["merge"][1000]))
+    print("       quickSort\t {:f}   {:f}   {:f}".format(time_dict["sorted"]["quick"][10],time_dict["sorted"]["quick"][100],time_dict["sorted"]["quick"][1000]))
+    print()
+
+    # reverse
+    print("Input type = Reverse")
+    print("\t\t\t avg time   avg time   avg time")
+    print("   Sort function\t  (n=10)    (n=100)    (n=1000)")
+    print("------------------------------------------------------------")
+    print("      bubbleSort\t {:f}   {:f}   {:f}".format(time_dict["reverse"]["bubble"][10],time_dict["reverse"]["bubble"][100],time_dict["reverse"]["bubble"][1000]))
+    print("   insertionSort\t {:f}   {:f}   {:f}".format(time_dict["reverse"]["insertion"][10],time_dict["reverse"]["insertion"][100],time_dict["reverse"]["insertion"][1000]))
+    print("       mergeSort\t {:f}   {:f}   {:f}".format(time_dict["reverse"]["merge"][10],time_dict["reverse"]["merge"][100],time_dict["reverse"]["merge"][1000]))
+    print("       quickSort\t {:f}   {:f}   {:f}".format(time_dict["reverse"]["quick"][10],time_dict["reverse"]["quick"][100],time_dict["reverse"]["quick"][1000]))
+    print()
+
+    # almost
+    print("Input type = Almost sorted")
+    print("\t\t\t avg time   avg time   avg time")
+    print("   Sort function\t  (n=10)    (n=100)    (n=1000)")
+    print("------------------------------------------------------------")
+    print("      bubbleSort\t {:f}   {:f}   {:f}".format(time_dict["almost"]["bubble"][10],time_dict["almost"]["bubble"][100],time_dict["almost"]["bubble"][1000]))
+    print("   insertionSort\t {:f}   {:f}   {:f}".format(time_dict["almost"]["insertion"][10],time_dict["almost"]["insertion"][100],time_dict["almost"]["insertion"][1000]))
+    print("       mergeSort\t {:f}   {:f}   {:f}".format(time_dict["almost"]["merge"][10],time_dict["almost"]["merge"][100],time_dict["almost"]["merge"][1000]))
+    print("       quickSort\t {:f}   {:f}   {:f}".format(time_dict["almost"]["quick"][10],time_dict["almost"]["quick"][100],time_dict["almost"]["quick"][1000]))
+    print()
 main()
