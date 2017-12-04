@@ -6,7 +6,7 @@
 #  Unique Number: 51465
 #
 #  Date Created: 11/21/2017
-#  Date Last Modified: 11/21/2017
+#  Date Last Modified: 11/27/2017
 
 
 import random
@@ -122,13 +122,13 @@ def sortList(alist, bubble_times, insertion_times, merge_times, quick_times):
         temp_list = copy.deepcopy(alist)
 
         # start the timer
-        start_time = time.time()
+        start_time = time.clock()
 
         # run bubble sort
         bubbleSort(temp_list)
 
         # end the timer
-        end_time = time.time()
+        end_time = time.clock()
 
         # get the elasepd time
         elasped_time = end_time - start_time
@@ -142,13 +142,13 @@ def sortList(alist, bubble_times, insertion_times, merge_times, quick_times):
         temp_list = copy.deepcopy(alist)
 
         # start the timer
-        start_time = time.time()
+        start_time = time.clock()
 
         # run bubble sort
         insertionSort(temp_list)
 
         # end the timer
-        end_time = time.time()
+        end_time = time.clock()
 
         # get the elasepd time
         elasped_time = end_time - start_time
@@ -162,13 +162,13 @@ def sortList(alist, bubble_times, insertion_times, merge_times, quick_times):
         temp_list = copy.deepcopy(alist)
 
         # start the timer
-        start_time = time.time()
+        start_time = time.clock()
 
         # run bubble sort
         mergeSort(temp_list)
 
         # end the timer
-        end_time = time.time()
+        end_time = time.clock()
 
         # get the elasepd time
         elasped_time = end_time - start_time
@@ -182,13 +182,13 @@ def sortList(alist, bubble_times, insertion_times, merge_times, quick_times):
         temp_list = copy.deepcopy(alist)
 
         # start the timer
-        start_time = time.time()
+        start_time = time.clock()
 
         # run bubble sort
         quickSort(temp_list)
 
         # end the timer
-        end_time = time.time()
+        end_time = time.clock()
 
         # get the elasepd time
         elasped_time = end_time - start_time
@@ -236,6 +236,11 @@ def main():
         time_dict["random"]["insertion"][n] = insertion_average
         time_dict["random"]["merge"][n] = merge_average
         time_dict["random"]["quick"][n] = quick_average
+
+        # print(bubble_times)
+        # print(insertion_times)
+        # print(merge_times)
+        # print(quick_times)
 
         # clear the times
         bubble_times.clear()
