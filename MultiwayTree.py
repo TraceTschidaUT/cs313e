@@ -88,8 +88,12 @@ class MultiwayTree():
             elif char_after == "[":
                 
                 # create a new tree
-                del pyTree[0]
+
+                # push onto the the stack b/c did not go through init
+                # only way this if state works is if called from a data point previously
+                # need to add to the stack so it can close later 
                 s.push(pyTree[0])
+                del pyTree[0]
                 children.append(MultiwayTree(pyTree))
 
         # if the char is a data value
@@ -111,7 +115,7 @@ class MultiwayTree():
 
 
     def preOrder(self): 
-        print(self.data)
+        print(self.data, end=" ")
         if self.children != []:
             for child in self.children:
                 child.preOrder()
@@ -122,7 +126,23 @@ class MultiwayTree():
     def insertChild(self, newTree):
         pass
 
-  
+def cleanTreeFile(tree_line_1):
+    tree_list_1 = []
+    idx = 0
+    while idx < len(tree_line_1):
+        if tree_line_1[idx].isspace() or tree_line_1[idx] == "," or tree_line_1[idx] == '"':
+            idx += 1
+            continue
+        else:
+            ch = tree_line_1[idx]
+            if tree_line_1[idx].isalnum() and idx < len(tree_line_1):
+                if tree_line_1[idx + 1].isalnum():
+                    ch +=  tree_line_1[idx + 1]
+                    idx += 1
+            tree_list_1.append(ch)
+            idx +=1
+    return tree_list_1
+
 def main():
     with open("MultiwayTreeInput.txt") as f:
       
@@ -132,29 +152,29 @@ def main():
         # print the first line
         print(tree_line_1)
 
-        tree_list_1 = []
-        idx = 0
-        while idx < len(tree_line_1):
-            if tree_line_1[idx].isspace() or tree_line_1[idx] == ",":
-                idx += 1
-                continue
-            else:
-                ch = tree_line_1[idx]
-                if tree_line_1[idx].isalnum() and idx < len(tree_line_1):
-                    if tree_line_1[idx + 1].isalnum():
-                        ch +=  tree_line_1[idx + 1]
-                        idx += 1
-                tree_list_1.append(ch)
-                idx +=1
-        print(tree_list_1)
-        print()
+        # clean the tree
+        tree_list_1 = cleanTreeFile(tree_line_1)
 
         # build the first multi tree
         tree_1 = MultiwayTree(tree_list_1)
 
         tree_1.preOrder()
+        print()
 
         # read the second line and remove the endings
         tree_line_2 = f.readline().strip()
+
+        # print the second line
+        print(tree_line_2)
+
+        # clean the tree line from the file
+        tree_list_2 = cleanTreeFile(tree_line_2)
+
+        # build the second multi tree
+        tree_2 = MultiwayTree(tree_list_2)
+
+        tree_2.preOrder()
+        print()
+
 
 main()
