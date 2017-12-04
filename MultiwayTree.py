@@ -121,60 +121,145 @@ class MultiwayTree():
                 child.preOrder()
 
     def isIsomorpicTo(self, otherTree):
-        pass
+
+        same = True
+        
+        # check to see if the number of children at this level are the same
+        if len(self.children) == len(otherTree.children):
+
+            # loop through the remaining children and determine if they are the same
+            # if there are no more children 
+            # return true becuase at the end
+            # base case
+            if self.children == []:
+                return True
+
+            # else there are more children for both
+            else:
+
+                # move through each of the children to see if thir children are the same nubers
+                child_idx = 0
+                while child_idx < len(self.children):
+
+                    # determine if their children are the same
+                    same = self.children[child_idx].isIsomorpicTo(otherTree.children[child_idx])
+
+                    # if the number of children are not the same break out and return false
+                    if same == False:
+                        return same
+                    else:
+                        # move to the next child
+                        child_idx += 1
+        
+        # else, the children are not the same number
+        else:
+            # return false becuase not iso morphic
+            # base case
+            return False
+
+        return same
+    
+
 
     def insertChild(self, newTree):
         pass
 
 def cleanTreeFile(tree_line_1):
+
+    # create a list of the elements of the string
+    # makes iterating when building the tree easier
     tree_list_1 = []
+
+    # counter to move through the string
     idx = 0
     while idx < len(tree_line_1):
+
+        # skip over spaces, commas, and quotation marks
         if tree_line_1[idx].isspace() or tree_line_1[idx] == "," or tree_line_1[idx] == '"':
             idx += 1
             continue
         else:
+
+            # build a string with the element's parts
             ch = tree_line_1[idx]
+
+            # if the element is more than 1 character long
+            # add the next element and increase the index
             if tree_line_1[idx].isalnum() and idx < len(tree_line_1):
                 if tree_line_1[idx + 1].isalnum():
                     ch +=  tree_line_1[idx + 1]
                     idx += 1
+            
+            # append the full element to the tree
+            # increase index and continue
             tree_list_1.append(ch)
             idx +=1
+
+    # return the list of elements
     return tree_list_1
 
 def main():
     with open("MultiwayTreeInput.txt") as f:
+
+        tree_count = 1
+
+        while True:
       
-        # read the first line and remove the endings
-        tree_line_1 = f.readline().strip()
-        
-        # print the first line
-        print(tree_line_1)
+            # read the first line and remove the endings
+            tree_line_1 = f.readline().strip()
 
-        # clean the tree
-        tree_list_1 = cleanTreeFile(tree_line_1)
+            if not tree_line_1:
+                break
+            
+            # print the first line
+            print("Tree 1: ", tree_line_1)
 
-        # build the first multi tree
-        tree_1 = MultiwayTree(tree_list_1)
+            # clean the tree
+            tree_list_1 = cleanTreeFile(tree_line_1)
 
-        tree_1.preOrder()
-        print()
+            # build the first multi tree
+            tree_1 = MultiwayTree(tree_list_1)
 
-        # read the second line and remove the endings
-        tree_line_2 = f.readline().strip()
+            # print the tree in preOrder
+            print("Tree {:} preorder: ".format(tree_count), end="  ")
+            tree_1.preOrder()
+            print()
+            print()
 
-        # print the second line
-        print(tree_line_2)
+            # increment the tree counter
+            tree_count += 1
 
-        # clean the tree line from the file
-        tree_list_2 = cleanTreeFile(tree_line_2)
+            # read the second line and remove the endings
+            tree_line_2 = f.readline().strip()
 
-        # build the second multi tree
-        tree_2 = MultiwayTree(tree_list_2)
+            # print the second line
+            print("Tree 2:", tree_line_2)
 
-        tree_2.preOrder()
-        print()
+            # clean the tree line from the file
+            tree_list_2 = cleanTreeFile(tree_line_2)
+
+            # build the second multi tree
+            tree_2 = MultiwayTree(tree_list_2)
+
+            # print in preorder
+            print("Tree {:} preorder:".format(tree_count), end="   ")
+            tree_2.preOrder()
+            print()
+            print()
+
+            answer = tree_1.isIsomorpicTo(tree_2)
+
+            if answer:
+                print("Tree {:} is isomorphic to Tree {:}".format(tree_count - 1, tree_count))
+            else:
+                print("Tree {:} is not isomorphic to Tree {:}".format(tree_count - 1, tree_count))
+
+            # print spacing
+            print()
+            print()
+
+            # incrememnt the tree counter
+            tree_count += 1
 
 
 main()
